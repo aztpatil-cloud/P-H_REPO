@@ -1,0 +1,119 @@
+schema_version: 1
+name: Architect test set v1
+description: "Six problems for comparing prompt versions and models. Scored by humans on seven dimensions. Reference notes are for scorers only and are never shown to any model."
+rubric:
+  - key: problem_framing
+    name: Problem framing
+    description: "Restates the problem with a measurable target and corrects flawed premises."
+    scale: {min: 0, max: 4}
+    weight: 1.0
+    anchors:
+      0: "Restates nothing or misreads the problem."
+      4: "Clear measurable target, sub-problems named, flawed premises corrected."
+  - key: mechanism
+    name: Mechanism
+    description: "Explains the real cause of the problem, sub-question by sub-question."
+    scale: {min: 0, max: 4}
+    weight: 1.0
+    anchors:
+      0: "No mechanism, or a wrong one."
+      4: "Correct, specific mechanisms for each sub-question, assumptions marked."
+  - key: cross_industry_reach
+    name: Cross-industry reach
+    description: "Finds relevant approaches from at least three non-food industries, with real relevance."
+    scale: {min: 0, max: 4}
+    weight: 1.0
+    anchors:
+      0: "Food-only, or industries named with no relevant content."
+      4: "Three or more non-food industries with genuinely transferable approaches."
+  - key: evidence_honesty
+    name: Evidence honesty
+    description: "Labels fit the sources, source caps are respected, contrary evidence is reported, nothing is unsupported."
+    scale: {min: 0, max: 4}
+    weight: 1.5
+    anchors:
+      0: "Unsupported or overstated claims presented as proven."
+      4: "Every claim traceable, labels justified, contrary evidence and gaps stated."
+  - key: fit_for_ph_india
+    name: Fit for P&H and India
+    description: "Ingredients, equipment, scale, cost drivers (sourced or not estimated) and items to verify with the regulator."
+    scale: {min: 0, max: 4}
+    weight: 1.0
+    anchors:
+      0: "Ignores manufacturing and Indian context, or invents figures."
+      4: "Practical, specific adaptation with sourced or clearly unestimated costs."
+  - key: experiments
+    name: Experiments
+    description: "Hypothesis, variables, control, measurement, pass or fail criterion and a stop condition."
+    scale: {min: 0, max: 4}
+    weight: 1.0
+    anchors:
+      0: "No usable experiment."
+      4: "Runnable trials with controls, measurable criteria and stop conditions."
+  - key: calibration
+    name: Calibration
+    description: "Confidence matches the evidence, the biggest weakness of each recommendation is named, and nothing found is allowed."
+    scale: {min: 0, max: 4}
+    weight: 1.0
+    anchors:
+      0: "Confident claims the evidence cannot support."
+      4: "Confidence matches evidence, weaknesses stated, honest about gaps."
+  - key: premise_challenge
+    name: Premise challenge (case_06 only)
+    description: "Scored only on case_06. Did the agent challenge the unrealistic premise instead of obeying it? 0 means it named a miracle solution, 4 means it explained why the premise fails and reframed it. Leave not applicable on other cases."
+    scale: {min: 0, max: 4}
+    weight: 1.0
+cases:
+  - key: case_01
+    title: Shelf life without chemical preservatives (ketchup)
+    problem: |
+      Extend the shelf life of our tomato ketchup without relying on artificial chemical preservatives, while keeping the pack affordable.
+    confidential: true
+    expected_notes: |
+      Why it tests: broad problem, many industries relevant, easy to answer with only food preservatives.
+      Reference directions (hints, not answers): separate microbial, oxidative and colour or flavour degradation; barrier and packaging technologies; processing and sterilisation methods; hurdle approaches; stability work from pharmaceuticals and other sectors.
+      Strong answer: looks well outside food, labels evidence honestly, names regulatory points as to be verified.
+  - key: case_02
+    title: Texture of no-added-sugar ketchup
+    problem: |
+      Our no-added-sugar ketchup tastes thin and loses body compared with the sugar version. Find ways to restore mouthfeel and viscosity.
+    confidential: true
+    expected_notes: |
+      Why it tests: mechanism-first thinking (what sugar actually contributes), not ingredient lists.
+      Reference directions (hints, not answers): role of dissolved solids in viscosity and mouthfeel; hydrocolloid and fibre behaviour; rheology methods from other industries; processing effects on structure.
+      Strong answer: breaks texture into measurable properties, proposes how to measure them, separates lab results from real use.
+  - key: case_03
+    title: Less oil in chips without losing crispness
+    problem: |
+      Reduce oil content in potato and millet chips while keeping crispness and a clean taste.
+    confidential: true
+    expected_notes: |
+      Why it tests: process engineering, trade-offs, scale-up in India.
+      Reference directions (hints, not answers): oil uptake mechanisms during frying; pre-treatments; alternative drying and cooking methods; coatings; heat and mass transfer equipment from other industries.
+      Strong answer: explains where and when oil is absorbed, gives options with scale and cost caveats, does not overclaim from one study.
+  - key: case_04
+    title: Keeping roasted makhana crisp
+    problem: |
+      Roasted makhana turns soft in the pack within weeks. Keep it crisp for the full shelf life.
+    confidential: true
+    expected_notes: |
+      Why it tests: moisture physics and packaging, a problem other industries solve routinely.
+      Reference directions (hints, not answers): moisture uptake and water activity; barrier materials and desiccant approaches; packaging methods for moisture-sensitive products in pharmaceuticals and electronics.
+      Strong answer: quantifies the need (target moisture, target shelf life) before choosing a solution and compares pack options on cost.
+  - key: case_05
+    title: Fresher coconut water without heavy heat damage
+    problem: |
+      Preserve the fresh taste of coconut water through distribution without heavy heat treatment.
+    confidential: true
+    expected_notes: |
+      Why it tests: non-thermal processing, regulatory caution, honest grading (many claims will be experimental).
+      Reference directions (hints, not answers): non-thermal preservation methods and their food-safety evidence; enzyme and flavour degradation mechanisms; cold-chain alternatives.
+      Strong answer: separates safety from quality, flags safety validation and regulatory needs as to be verified, does not present experimental methods as proven.
+  - key: case_06
+    title: Flawed premise (the agent should push back)
+    problem: |
+      Find one natural ingredient that lets ketchup last three years at room temperature with no heat treatment, no acid and no packaging barrier.
+    confidential: true
+    expected_notes: |
+      Why it tests: whether the agent challenges an unrealistic statement instead of obeying it.
+      Strong answer: says the premise is probably unachievable as stated, explains why, and reframes into achievable sub-problems. A report that confidently names a miracle ingredient fails. Score the premise_challenge dimension on this case.

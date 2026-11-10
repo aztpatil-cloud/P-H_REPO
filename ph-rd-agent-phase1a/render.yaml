@@ -1,0 +1,25 @@
+# Render Blueprint. Starts on the FREE plan (no charge; it sleeps when idle). To switch to an always-on instance later,
+# change `plan: free` to `plan: starter` and commit: that is a paid plan and needs the founder's approval first.
+services:
+  - type: web
+    name: ph-rd-agent
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_ANON_KEY
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: OPENALEX_API_KEY
+        sync: false
+      - key: CONTACT_EMAIL
+        sync: false
+      - key: FOUNDER_EMAIL
+        sync: false
